@@ -1,10 +1,10 @@
 import os
 
 def load_key():
+    '''load key from secret_key.txt'''
     return open("secret_key.txt", "rb").read()
     
 
 class Config(object):
+    '''secret key for POST communication with server and controller'''
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'
-    # MONGOALCHEMY_DATABASE = os.environ.get('MONGOALCHEMY_DATABASE') or \
-    #     "mongodb://127.0.0.1:27017/"

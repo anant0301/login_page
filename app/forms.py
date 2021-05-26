@@ -5,7 +5,7 @@ from wtforms import SelectField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email
 
-
+# different forms for data entry and communication
 class LoginForm(FlaskForm):
     txt_username = StringField('Username', validators=[DataRequired()])
     txt_password = PasswordField('Password', validators=[DataRequired()])

@@ -2,20 +2,22 @@ from flask_login import current_user, login_required, login_user, logout_user
 from flask import flash, redirect, url_for, render_template, request
 from . import *
 
+# local file imports
 from .user import User
-from .forms import ForgotPasswordForm, LoginForm
+from .forms import LoginForm
 from .forms import EmployeeForm
 from .forms import DepartmentForm
 from .forms import RegisterForm
+from .forms import ForgotPasswordForm
 from .db_mongo import *
 
 @login_manager.user_loader
 def load_user(id):
-    user_data = [x for x in find(coll_name[2], {'_id' : id}, {header: True for header in user_db_header})]
+    user_data = [x for x in find(coll_name[2], {'_id' : id}, {header: True for header in user_header})]
     if len(user_data) == 1:
         user_data = user_data[0]
-        return User(username= user_data[user_db_header[0]], email= user_data[user_db_header[1]],\
-                password= user_data[user_db_header[2]], encrypt_password= False)
+        return User(username= user_data[user_header[0]], email= user_data[user_header[1]],\
+                password= user_data[user_header[2]], encrypt_password= False)
     else:
         return None
 
@@ -112,11 +114,11 @@ def forgot_password():
             user = User(username= forgot_form.txt_username.data, email= forgot_form.txt_email.data, password= forgot_form.txt_password.data)
             if user == stored_user:
                 user_data = {
-                    user_db_header[0]: forgot_form.txt_username.data,
-                    user_db_header[1]: forgot_form.txt_email.data,
-                    user_db_header[2]: forgot_form.txt_password.data
+                    user_header[0]: forgot_form.txt_username.data,
+                    user_header[1]: forgot_form.txt_email.data,
+                    user_header[2]: forgot_form.txt_password.data
                 }
-                update(coll_name[2], user_data, user_db_header[0], type_constr= coll_constr[coll_name[2]])
+                update(coll_name[2], user_data, user_header[0], type_constr= coll_constr[coll_name[2]])
             else:
                 flash('Incorrect User Details')
                 return redirect(url_for('login'))
@@ -136,11 +138,11 @@ def details():
     if request.method == 'POST':
         user = User(username= current_user.id, email= details_form.txt_email.data, password= details_form.txt_password.data)
         user_data = {
-            user_db_header[0]: user.id,
-            user_db_header[1]: user.email,
-            user_db_header[2]: user.password
+            user_header[0]: user.id,
+            user_header[1]: user.email,
+            user_header[2]: user.password
         }
-        update(coll_name[2], user_data, user_db_header[0], type_constr= coll_constr[coll_name[2]])
+        update(coll_name[2], user_data, user_header[0], type_constr= coll_constr[coll_name[2]])
         logout_user()
         flash('Details updated')
         return redirect(url_for('login'))

@@ -5,6 +5,7 @@ import pymongo
 
 
 class Database():
+    '''Class for database operations'''
     def __init__(self, db_name, collection_names):
         self.db_name = db_name
         self.collection_names = collection_names
@@ -47,9 +48,9 @@ def get_table_data(coll_name, headers):
 def add_user(user: User):
     try:
         data_entry = {
-            user_db_header[0]: user._id,
-            user_db_header[1]: user.email,
-            user_db_header[2]: user.password
+            user_header[0]: user._id,
+            user_header[1]: user.email,
+            user_header[2]: user.password
         }
         db[coll_name[2]].insert(data_entry)
         return True
@@ -57,11 +58,11 @@ def add_user(user: User):
         return False
 
 def get_user(id):
-    user_data = [x for x in find(coll_name[2], {'_id' : id}, {header: True for header in user_db_header})]
+    user_data = [x for x in find(coll_name[2], {'_id' : id}, {header: True for header in user_header})]
     if len(user_data) == 1:
         user_data = user_data[0]
-        return User(username= user_data[user_db_header[0]], email= user_data[user_db_header[1]],\
-                password= user_data[user_db_header[2]], encrypt_password= False)
+        return User(username= user_data[user_header[0]], email= user_data[user_header[1]],\
+                password= user_data[user_header[2]], encrypt_password= False)
     elif len(user_data) > 1:
         print("Problem in primary key")
     return None
