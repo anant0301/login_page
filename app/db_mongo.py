@@ -142,11 +142,7 @@ class Database():
             None: no user exists for the data/ integrity(uniq val) of _id is not there
 
         '''
-        try:
-            user_data = [x for x in self.find(self.coll_name[2], {'_id' : id}, {header: True for header in user_header})]
-        except Exception as e:
-            print("Get user error:", e)
-            return None
+        user_data = [x for x in self.find(self.coll_name[2], {'_id' : id}, {header: True for header in user_header})]
         if len(user_data) == 1:
             user_data = user_data[0]
             return User(username= user_data[user_header[0]], email= user_data[user_header[1]],\

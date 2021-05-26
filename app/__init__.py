@@ -30,9 +30,6 @@ dept_header = [
     '_id', 'Department Name', 'Manager ID'
 ]
 
-# connect to the mongo database 
-from .db_mongo import Database
-db_model = Database(db_name, coll_name)
 
 bytes_utf8 = lambda s: bytes(s, encoding="utf-8") 
 # data types of data headers
@@ -40,9 +37,8 @@ bytes_utf8 = lambda s: bytes(s, encoding="utf-8")
 coll_constr = {
     'empl': [int, str, int, int, int, int, int],
     'dept': [int, str, int],
-    'user': [str, str, bytes_utf8]
+    'user': [str, str, str]
 }
-db_model.user_header = user_header
 
 # session manager
 login_manager = LoginManager(app)

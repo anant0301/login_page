@@ -50,8 +50,7 @@ class User(UserMixin):
 
     def check_password(self, password):
         '''return if the given password (not encrypted) and the password stored are equal'''
-        decrypted = decrypt(self.password, key)
-        return decrypted == password
+        return str(encrypt(password, key)) ==  self.password
     
     def __eq__(self, user):
         '''two User objects are equal if they have the same email and username'''

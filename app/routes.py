@@ -12,6 +12,12 @@ from .forms import ForgotPasswordForm
 from .forms import DetailsForm
 from .db_mongo import *
 
+# connect to the mongo database 
+from .db_mongo import Database
+db_model = Database(db_name, coll_name)
+db_model.user_header = user_header
+
+
 @login_manager.user_loader
 def load_user(id):
     return db_model.get_user(id)
@@ -162,9 +168,9 @@ def forgot_password():
             # if the email and username are correct
             if user == stored_user:
                 user_data = {
-                    user_header[0]: forgot_form.txt_username.data,
-                    user_header[1]: forgot_form.txt_email.data,
-                    user_header[2]: forgot_form.txt_password.data
+                    user_header[0]: user.id,
+                    user_header[1]: user.email,
+                    user_header[2]: user.password
                 }
                 db_model.update(coll_name[2], user_data, user_header[0], type_constr= coll_constr[coll_name[2]])
                 flash('User Password Updated')
