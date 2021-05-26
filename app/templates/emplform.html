@@ -133,8 +133,6 @@
         $("#textFieldEid").focusout(function () {
             var id_val = document.getElementById("textFieldEid").value;
             val = int_regex.test(id_val);
-            console.log(id_val);
-            console.log(val);
             if (val) {
                 ret = focusOut(this.id, empFieldId)
                 if (ret) {
