@@ -3,6 +3,7 @@ Flask Implementation of a login page and some basic functionality.
 
 ## How to Run
 ```bash
+$ chmod +x run.sh
 $ ./run.sh
 ```
 
