@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block form %}
+
+<div class="container">
+    <form method="post" action="">
+        <div class="container">
+            <div class="row">
+                <p>
+                {{ form.txt_username.label }}
+                </p>
+            </div>
+            <div class="row">
+                {{ form.txt_username(class_="textfield", id= "userName") }}
+            </div>
+            <div class="row">
+                <p>
+                    {{ form.txt_email.label }}
+                </p>
+            </div>
+            <div class="row">
+                {{ form.txt_email(class_="textfield", id= "eMail") }}
+            </div>
+            <div class="row">
+                <p>
+                    {{ form.txt_password.label }}
+                </p>
+            </div>
+            <div class="row">
+                {{ form.txt_password(class_="textfield", id= "passWord") }}
+            </div>
+            <div class="row">
+                {{ form.btn_submit(class_="btn-lg btn-primary", id= "btnSubmit") }}
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

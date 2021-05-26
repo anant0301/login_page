@@ -1,0 +1,113 @@
+{% extends "index.html" %}
+
+
+{% block form %}
+<form method="POST" action="/update-dept" >
+    <div class="row">
+        <div class="col-sm-4">
+            <font>
+                {{ form.txt_did.label }}
+            </font>
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_did(class_="textfield", id="textFieldDid") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_dname.label }}
+            </font>
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_dname(class_="textfield", id="textFieldDName") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_mid.label }}
+            </font> 
+            </div>
+        <div class="col-sm-8">
+                {{ form.txt_mid(class_="textfield dropdown", id="textFieldMid") }}
+        </div>
+    </div>
+    <div class="row" style="border-style: none;">
+        <div class="col-sm-4" style="border-style:none">
+            <!-- <button class="btn-lg btn-success" id="btnUpdate" type="submit">Save</button> -->
+            {{ form.btn_update(class_="btn-lg btn-success", id="btnUpdate" ) }}
+        </div>
+        <div class="col-sm-4" style="border-style:none">
+            {{ form.btn_delete(class_="btn-lg btn-danger", id="btnDelete" ) }}
+            <!-- <button class="btn-lg btn-danger" id="btnDelete" type="submit">Delete</button> -->
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-4" style="border-style:none">
+        <button class="btn-lg btn-primary" id="btnClear">Clear</button>
+    </div>
+</div>
+
+<script>
+    $('#textFieldDid').focus();
+     $("#btnClear").show();
+    $(document).ready(function() {
+        
+        deptFieldId = ["textFieldDid", "textFieldDName", "textFieldMid"];
+        document.getElementById(deptFieldId[deptFieldId.length - 1]).value = "";
+        var int_regex = /^[0-9]*$/
+
+        $(".btn-lg").prop("disabled", true);    
+        $("tr").not('#tableHeader').click(function() {
+
+            var n_col = this.cells.length;
+            for(j = 0; j < n_col; ++j) {
+                id = deptFieldId[j];
+                cell_data = this.cells.item(j).innerText;
+                document.getElementById(id).value = cell_data;
+            }
+            $("#btnDelete").prop("disabled", false);
+            $("#btnClear").prop("disabled", false);
+            $("#btnUpdate").prop("disabled",  false);
+        });
+        $("#btnDelete").click(function () {
+            var re = /[ \n\t]/;
+            var fieldData = getRecord()
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json;charset=UTF-8',
+                data : fieldData
+            })
+        });
+
+        $("#btnClear").click(function () {
+            $(".btn-lg").prop("disabled", true);
+            $("#textFieldDid").prop("readonly", false);
+            $("#textFieldDName").prop("readonly", false);
+            clearTextField(deptFieldId);
+        });
+        $("#textFieldDid").focusout(function () {
+            var id_val = document.getElementById("textFieldDid").value;
+                val = int_regex.test(id_val);
+                console.log(id_val);
+                console.log(val);
+                if (val) {
+                    ret = focusOut(this.id, deptFieldId)
+                    if (ret) {
+                        $("#textFieldDid").prop("readonly", true);
+                        $("#textFieldDName").prop("readonly", true);
+                    } else {
+                        $("#btnUpdate").prop("disabled",  false);
+                        $("#btnClear").prop("disabled",  false);
+                    }
+                } else {
+                    alert("Enter Numeric Value for Employee ID");
+                    document.getElementById("textFieldDid").value = "";
+                }
+        });
+    });
+</script>
+
+{% endblock %}

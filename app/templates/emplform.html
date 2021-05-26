@@ -1,0 +1,155 @@
+{% extends "index.html" %}
+
+
+{% block form %}
+<form method="POST" action="/update-empl" >
+    <div class="row">
+        <div class="col-sm-4">
+            <font>
+                {{ form.txt_eid.label }}
+            </font>
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_eid(class_="textfield", id="textFieldEid") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_ename.label }}
+            </font>
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_ename(class_="textfield", id="textFieldEName") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_salary.label }}
+            </font> 
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_salary(class_="textfield", id="textFieldBasSal") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_hra.label }}
+            </font> 
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_hra(class_="textfield", id="textFieldHRA") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_da.label }}
+            </font> 
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_da(class_="textfield", id="textFieldDA") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font> 
+                {{ form.txt_deductions.label }}
+            </font> 
+            </div>
+        <div class="col-sm-8">
+                {{ form.txt_deductions(class_="textfield", id="textFieldDed") }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <font>
+                {{ form.txt_did.label }}
+            </font>
+        </div>
+        <div class="col-sm-8">
+                {{ form.txt_did(class_="textfield dropdown", id="textFieldDid") }}
+        </div>
+    </div>
+    <div class="row" style="border-style: none;">
+        <div class="col-sm-4" style="border-style:none">
+            <!-- <button class="btn-lg btn-success" id="btnUpdate" type="submit">Save</button> -->
+            {{ form.btn_update(class_="btn-lg btn-success", id="btnUpdate" ) }}
+        </div>
+        <div class="col-sm-4" style="border-style:none">
+            {{ form.btn_delete(class_="btn-lg btn-danger", id="btnDelete" ) }}
+            <!-- <button class="btn-lg btn-danger" id="btnDelete" type="submit">Delete</button> -->
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-4" style="border-style:none">
+        <button class="btn-lg btn-primary" id="btnClear">Clear</button>
+    </div>
+</div>
+
+<script>
+    $('#textFieldEid').focus();
+     $("#btnClear").show();
+    $(document).ready(function() {
+        var int_regex = /^[0-9]*$/
+        var trap = false;
+        empFieldId = ["textFieldEid", "textFieldEName", "textFieldBasSal", "textFieldHRA", "textFieldDA", "textFieldDed", "textFieldDid"];
+        document.getElementById(empFieldId[empFieldId.length - 1]).value = "";
+
+        $(".btn-lg").prop("disabled", true);
+        $("tr").not('#tableHeader').click(function() {
+
+            var n_col = this.cells.length;
+            for(j = 0; j < n_col; ++j) {
+                id = empFieldId[j];
+                cell_data = this.cells.item(j).innerText;
+                document.getElementById(id).value = cell_data;
+            }
+            $("#textFieldEid").prop("readOnly", true);
+            $("#textFieldEName").prop("readOnly", true);
+            $("#btnDelete").prop("disabled", false);
+            $("#btnClear").prop("disabled", false);
+            $("#btnUpdate").prop("disabled",  false);
+        });
+        $("#btnDelete").click(function () {
+            var re = /[ \n\t]/;
+            var fieldData = getRecord()
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json;charset=UTF-8',
+                data : fieldData
+            })
+        });
+
+        $("#btnClear").click(function () {
+            $(".btn-lg").prop("disabled", true);
+            $("#textFieldEid").prop("readonly", false);
+            $("#textFieldEName").prop("readonly", false);
+            clearTextField(empFieldId);
+        });
+        $("#textFieldEid").focusout(function () {
+            var id_val = document.getElementById("textFieldEid").value;
+            val = int_regex.test(id_val);
+            console.log(id_val);
+            console.log(val);
+            if (val) {
+                ret = focusOut(this.id, empFieldId)
+                if (ret) {
+                    $("#textFieldEid").prop("readonly", true);
+                    $("#textFieldEName").prop("readonly", true);
+                } else {
+                    $("#btnUpdate").prop("disabled",  false);
+                    $("#btnClear").prop("disabled",  false);
+                }
+            } else {
+                alert("Enter Numeric Value for Employee ID");
+                document.getElementById("textFieldEid").value = "";
+            }
+        });
+    });
+</script>
+
+{% endblock %}

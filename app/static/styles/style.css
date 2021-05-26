@@ -1,0 +1,70 @@
+div.row {
+    position: relative;
+    padding: 2px;
+    margin: 10px;
+}
+
+tbody {
+    height: 30%;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+    color:rgb(13, 10, 50);
+}
+.horizontal-scroll {
+    overflow: hidden;
+    overflow-x: auto;
+    width: 100%;
+}
+table {
+    min-width: rem-calc(640);
+}
+
+font{
+    color:rgb(50, 10, 50);
+}
+
+div.col-sm-4 {
+    /* border: 3px solid; */
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: capitalize;
+    text-shadow: 1px 1px;
+}
+
+form.form-input {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid;
+    background: rgb(179, 173, 173);
+}
+
+input.textfield {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid 0.6;
+    width: 80%;
+}
+
+div.col-sm-1 {  
+    border: none;
+    padding: 10px;
+    text-align: left;
+    text-transform: capitalize;
+    text-shadow: 1px 1px;
+}
+
+div.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+.dropdown {
+    size: auto;
+    width: 80%;
+}
+
+div.col-sm-4 {
+    overflow-x: hidden;
+}

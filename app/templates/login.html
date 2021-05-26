@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block form %}
+
+<div class="container">
+    <form method="post" action="/login">
+        <div class="container">
+            <div class="row">
+                <p>
+                    {{ form.txt_username.label }}
+                </p>
+            </div>
+            <div class="row">
+                {{ form.txt_username(class_="textfield", id= "userName") }}
+            </div>
+            <div class="row">
+                <p>
+                    {{ form.txt_password.label }}
+                </p>
+                </div>
+            <div class="row">
+                {{ form.txt_password(class_="textfield", id= "passWord") }}
+            </div>
+            <div class="row">
+                <a href="{{ url_for('forgot_password') }}">
+                    <p>
+                        Forgot Password
+                    </p>
+                </a>
+            </div>
+            <div class="row">
+                {{ form.btn_submit(class_="btn-lg btn-primary", id= "btnSubmit") }}
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
