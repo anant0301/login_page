@@ -5,7 +5,6 @@ from wtforms import SelectField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email
 
-# different forms for data entry and communication
 class LoginForm(FlaskForm):
     txt_username = StringField('Username', validators=[DataRequired()])
     txt_password = PasswordField('Password', validators=[DataRequired()])
@@ -13,6 +12,13 @@ class LoginForm(FlaskForm):
     text_entries = ['txt_username', 'txt_password']
 
 class RegisterForm(FlaskForm):
+    txt_username = StringField('Username', validators=[DataRequired(),])
+    txt_email = StringField('Email', validators=[Email()])
+    txt_password = PasswordField('Password', validators=[DataRequired(),])
+    btn_submit = SubmitField('Submit')
+    text_entries = ['txt_username', 'txt_email', 'txt_password']
+
+class DetailsForm(FlaskForm):
     txt_username = StringField('Username', validators=[DataRequired(),])
     txt_email = StringField('Email', validators=[Email()])
     txt_password = PasswordField('Password', validators=[DataRequired(),])

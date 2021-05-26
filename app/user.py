@@ -6,6 +6,11 @@ from .crypto import decrypt, encrypt
 
 class User(UserMixin):
     '''A user class for session management and user data'''
+    '''
+    id: protected
+    email: public
+    password: private
+    '''
     def __init__(self, username: str, password: str, email: str= None, encrypt_password: bool= True) -> None:
         ''' Initialize User object
         Args:
