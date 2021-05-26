@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 
 # local file imports
-from .crypto import decrypt, encrypt
+from .crypto import encrypt
 
 class User(UserMixin):
     '''A user class for session management and user data'''
