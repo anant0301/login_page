@@ -2,9 +2,6 @@ from flask import Flask
 from flask_login import LoginManager
 from config import Config, load_key
 
-# load key
-key = load_key()
-
 # make the flask app and add configurations 
 app = Flask(__name__)
 app.config.from_object(Config)

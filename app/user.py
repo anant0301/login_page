@@ -1,7 +1,6 @@
 from flask_login import UserMixin
 
 # local file imports
-from . import key
 from .crypto import decrypt, encrypt
 
 class User(UserMixin):
@@ -46,11 +45,11 @@ class User(UserMixin):
 
     @password.setter
     def password(self, password):
-        self.__password = encrypt(password, key)
+        self.__password = encrypt(password)
 
     def check_password(self, password):
         '''return if the given password (not encrypted) and the password stored are equal'''
-        return str(encrypt(password, key)) ==  self.password
+        return str(encrypt(password)) ==  self.password
     
     def __eq__(self, user):
         '''two User objects are equal if they have the same email and username'''
