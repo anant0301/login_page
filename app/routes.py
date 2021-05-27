@@ -129,7 +129,7 @@ def update_empl():
             flash("Employee record updated", "INFO")
         # Delete button: Delete 
         elif empl_form.btn_delete.data:
-            db_model.delete(coll_name[0], emp_data)
+            db_model.delete(coll_name[0], emp_data, type_constr= coll_constr[coll_name[0]])
             print("Employee record deleted", "INFO")
             flash("Employee record deleted", "INFO")
     return redirect(url_for('emp_index'))
@@ -151,7 +151,7 @@ def update_depl():
 
         # Delete button: Delete 
         elif dept_form.btn_delete.data:
-            db_model.delete(coll_name[1], dept_data)
+            db_model.delete(coll_name[1], dept_data, type_constr= coll_constr[coll_name[1]])
             print("Department record delelted", "INFO")
             flash("Department record delelted", "INFO")
 
@@ -173,6 +173,7 @@ def forgot_password():
                     user_header[2]: user.password
                 }
                 db_model.update(coll_name[2], user_data, user_header[0], type_constr= coll_constr[coll_name[2]])
+                print('User Password Updated')
                 flash('User Password Updated')
             else:
                 print('forgot_password: Incorrect User Details', 'WARNING')

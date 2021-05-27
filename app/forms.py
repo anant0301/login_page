@@ -3,7 +3,7 @@ from wtforms import PasswordField
 from wtforms import StringField
 from wtforms import SelectField
 from wtforms.fields.simple import SubmitField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, NumberRange
 
 class LoginForm(FlaskForm):
     txt_username = StringField('Username', validators=[DataRequired()])
@@ -36,10 +36,10 @@ class DepartmentForm(FlaskForm):
 class EmployeeForm(FlaskForm):
     txt_eid = StringField('Employee ID', validators=[DataRequired()])
     txt_ename = StringField('Employee Name', validators=[DataRequired()])
-    txt_salary = StringField('Salary', validators=[DataRequired()])
-    txt_hra = StringField('House Rent Allowance', validators=[DataRequired()])
-    txt_da = StringField('Dearness Allowance', validators=[DataRequired()])
-    txt_deductions = StringField('Deductions', validators=[DataRequired()])
+    txt_salary = StringField('Salary', validators=[DataRequired(), NumberRange(min= 0)])
+    txt_hra = StringField('House Rent Allowance', validators=[DataRequired(), NumberRange(min= 0)])
+    txt_da = StringField('Dearness Allowance', validators=[DataRequired(), NumberRange(min= 0)])
+    txt_deductions = StringField('Deductions', validators=[DataRequired(), NumberRange(min= 0)])
     txt_did = SelectField('Department ID', validators=[DataRequired()], default=None)
     btn_update = SubmitField('Save')
     btn_delete = SubmitField('Delete')

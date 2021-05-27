@@ -39,7 +39,7 @@ class Database():
             print("Updation Error:", err)
 
 
-    def delete(self, collection: str, delete_query: dict):
+    def delete(self, collection: str, delete_query: dict, type_constr):
         '''delete a record in the collection based on the query
         Args:
             collection: str
@@ -48,7 +48,8 @@ class Database():
                 deletion query given as input to the pymongo 
         '''
         try:
-            self.db[collection].remove(delete_query)
+            self.db[collection].remove({header: type_constr[i](delete_query[header]) \
+                                        for i, header in enumerate(list(delete_query.keys()))})
         except Exception as err:
             print("Deletion Error:", err)
 
