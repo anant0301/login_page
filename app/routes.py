@@ -23,6 +23,10 @@ def load_user(id):
     return db_model.get_user(id)
 
 @app.route('/')
+### package.func()
+# api 3.8
+# training 3.7
+# api container -> func()
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     '''
